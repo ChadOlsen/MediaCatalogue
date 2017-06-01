@@ -1,3 +1,7 @@
+package app.catalogue;
+
+import app.item.*;
+
 /**
  * This class will populate the Catalogue if no file exists to populate the Catalogue.
  *

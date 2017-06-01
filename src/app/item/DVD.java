@@ -1,3 +1,7 @@
+package app.item;
+
+import app.Main;
+
 /**
  * The DVD class that extends from the abstract Item class.
  * This class contains functionality to create a new DVD object to add to the catalogue as well as to print a list of
@@ -25,7 +29,7 @@ public class DVD extends Item {
         return leadActor;
     }
 
-    void setLeadActor(String leadActor) {
+    public void setLeadActor(String leadActor) {
         this.leadActor = leadActor;
     }
 
@@ -33,7 +37,7 @@ public class DVD extends Item {
         return leadActress;
     }
 
-    void setLeadActress(String leadActress) {
+    public void setLeadActress(String leadActress) {
         this.leadActress = leadActress;
     }
 
@@ -58,7 +62,7 @@ public class DVD extends Item {
         System.out.print("Enter title for new DVD:");
         String dvdTitle = Main.scanner.nextLine();
 
-        while (dvdTitle.equals("")) {
+        while ("".equals(dvdTitle)) {
             System.out.println("Invalid DVD Title....");
             System.out.print("Enter title for new DVD:");
             dvdTitle = Main.scanner.nextLine();
@@ -67,7 +71,7 @@ public class DVD extends Item {
         System.out.print("Enter Genre for new DVD:");
         String dvdGenre = Main.scanner.nextLine();
 
-        while (dvdGenre.equals("")) {
+        while ("".equals(dvdGenre)) {
             System.out.println("Invalid DVD Genre....");
             System.out.print("Enter title for new DVD:");
             dvdGenre = Main.scanner.nextLine();
@@ -76,7 +80,7 @@ public class DVD extends Item {
         System.out.print("Enter Duration for new DVD:");
         String dvdDuration = Main.scanner.nextLine();
 
-        while (dvdDuration.equals("")) {
+        while ("".equals(dvdDuration)) {
             System.out.println("Invalid DVD Duration....");
             System.out.print("Enter title for new DVD:");
             dvdDuration = Main.scanner.nextLine();

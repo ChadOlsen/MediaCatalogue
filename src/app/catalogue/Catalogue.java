@@ -1,5 +1,10 @@
+package app.catalogue;
+
 import java.io.*;
 import java.util.*;
+import app.item.*;
+import app.Main;
+
 
 /**
  * Created by TwiceAsNice on 2017/04/19.
@@ -17,12 +22,16 @@ public class Catalogue implements Serializable {
         return catalogueMap;
     }
 
+    public void setCatalogueMap(Map<Type, List<Item>> catalogueMap) {
+        this.catalogueMap = catalogueMap;
+    }
+
     /**
      * This method adds a new Item to a list og items in the Catalogue map.
      *
      * @param item This is the new Item object to be added to the Catalogue map list.
      */
-    void addItemToList(Item item) {
+    public void addItemToList(Item item) {
         List<Item> list = this.catalogueMap.get(item.getType());
 
         if (list == null) {
@@ -63,19 +72,28 @@ public class Catalogue implements Serializable {
      * criteria.
      *
      * @param list        This parameter is the list that the criteria needs to search through.
-     * @param titleSearch This is the input criteria the uses to search through the list of items.
+     * @param searchString This is the input criteria the uses to search through the list of items.
      * @return List This method returns a new list of all the Item objects that met the search criteria.
      */
-    private static List<Item> searchByTitle(List<Item> list, String titleSearch) {
-        List<Item> newItem = new ArrayList<>();
+    public static List<Item> searchByTitle(List<Item> list, String searchString) {
+        List<Item> newList = new ArrayList<>();
 
+        if (list == null || list.isEmpty()) {
+            return newList;
+        }
+        if (searchString == null || searchString.isEmpty()) {
+            System.out.println("An invalid search criteria has been entered...");
+            return newList;
+        }
         for (Item item : list) {
-            if (item.getTitle().contains(titleSearch)) {
-                newItem.add(item);
+            if (item == null || item.getTitle() == null) {
+                continue;
+            }
+            if (item.getTitle().toLowerCase().contains(searchString.toLowerCase())) {
+                newList.add(item);
             }
         }
-
-        return newItem;
+        return newList;
     }
 
     /**
@@ -85,7 +103,7 @@ public class Catalogue implements Serializable {
      *
      * @param choice This is the user input to decide on how to do the search.
      */
-    void searchDVD(int choice) {
+    public void searchDVD(int choice) {
         String output = "";
         String newString;
         int count = 0;
@@ -107,8 +125,8 @@ public class Catalogue implements Serializable {
 
                     for (Item dvd : newList) {
                         output += dvd.toString() + "\n";
-                        isValid = true;
                     }
+                    isValid = true;
                 } catch (InputMismatchException e) {
                     invalidEntry();
                 }
@@ -131,9 +149,9 @@ public class Catalogue implements Serializable {
                         if (newString.equalsIgnoreCase(dvd.getLeadActor()) || newString.equalsIgnoreCase(dvd.getLeadActress())) {
                             output += dvd.toString();
                             count++;
-                            isValid = true;
                         }
                     }
+                    isValid = true;
                 } catch (InputMismatchException e) {
                     invalidEntry();
                 }
@@ -150,7 +168,7 @@ public class Catalogue implements Serializable {
      *
      * @param choice This is the user input to decide on how to do the search.
      */
-    void searchCD(int choice) {
+    public void searchCD(int choice) {
         String output = "";
         String newString;
         boolean isValid = false;
@@ -161,7 +179,7 @@ public class Catalogue implements Serializable {
                 System.out.println("Enter Album title to search: ");
                 newString = Main.scanner.nextLine().toLowerCase();
 
-                if (newString.length() == 0) {
+                if (newString.isEmpty()) {
                     invalidEntry();
                     continue;
                 }
@@ -172,8 +190,8 @@ public class Catalogue implements Serializable {
 
                     for (Item cd : newList) {
                         output += cd.toString() + "\n";
-                        isValid = true;
                     }
+                    isValid = true;
                 } catch (InputMismatchException e) {
                     invalidEntry();
                 }
@@ -197,10 +215,10 @@ public class Catalogue implements Serializable {
                             if (newString.equalsIgnoreCase(cd.getArtists().get(i))) {
                                 output += cd.toString() + "\n";
                                 count++;
-                                isValid = true;
                             }
                         }
                     }
+                    isValid = true;
                 } catch (InputMismatchException e) {
                     invalidEntry();
                 }
@@ -213,42 +231,55 @@ public class Catalogue implements Serializable {
     /**
      * This method locates an Item object and deletes it from the Map list of that type object.
      *
-     * @param item  This is the DVD type object that needs to be deleted from the list.
+     * @param type  This is the DVD type object that needs to be deleted from the list.
      * @param index This is the index of the item in the list to be deleted.
      */
-    void deleteItem(Item item, int index) {
-        List<Item> list = this.catalogueMap.get(item.getType());
-        if (list.isEmpty()) {
+    public void deleteItem(Type type, int index) {
+        List<Item> list = this.catalogueMap.get(type);
+
+        if (list == null || list.isEmpty()) {
             System.out.println("Could not delete the item, index does not exist!\n" +
-                    "There are only " + list.size() + " items available in the Catalogue, you tried to delete number " + index);
+                    "There are no items available in the Catalogue, you cannot delete items from an empty catalogue...");
             return;
         }
+
         if ((index - 1) >= 0 && index <= list.size()) {
             System.out.println(list.get(index - 1).getTitle() + " was removed from the list." + "\n" +
                     "========================================");
             list.remove(index - 1);
+        } else {
+            System.out.println("Could not delete the item, index does not exist!\n" +
+                    "There are only " + list.size() + " items available in the Catalogue, you tried to delete number " + index);
         }
     }
 
     /**
      * This method prints all the items presently saved in the Catalogue to the console as a list of each type of Item.
      */
-    void printCatalogue() {
+    public void printCatalogue() {
         System.out.println("========================================" + "\n" +
                 "\t\t\t" + "Catalogue Items" + "\n" +
                 "========================================");
-        for (Item cd : this.catalogueMap.get(Type.DVD)) {
-            System.out.println(cd.printItem());
+        if (this.catalogueMap.get(Type.DVD).isEmpty()){
+            System.out.println("There are no DVD items in the Catalogue to display..\n");
+        } else {
+            for (Item cd : this.catalogueMap.get(Type.DVD)) {
+                System.out.println(cd.printItem());
+            }
         }
-        for (Item dvd : this.catalogueMap.get(Type.CD)) {
-            System.out.println(dvd.printItem());
+        if (this.catalogueMap.get(Type.CD).isEmpty()){
+            System.out.println("There are no CD items in the Catalogue to display..\n");
+        } else {
+            for (Item dvd : this.catalogueMap.get(Type.CD)) {
+                System.out.println(dvd.printItem());
+            }
         }
     }
 
     /**
      * This method prints a Goodbye message when the user enters an input to exit the program.
      */
-    void printGoodBye() {
+    public void printGoodBye() {
         System.out.println("========================");
         System.out.println("GOOD BYE FOR NOW....");
         System.out.println("========================");
