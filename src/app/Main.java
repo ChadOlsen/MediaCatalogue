@@ -1,3 +1,15 @@
+package app;
+
+import app.account.Account;
+import app.account.AccountManager;
+import app.catalogue.Catalogue;
+import app.catalogue.CataloguePopulator;
+import app.data.MemoryHandler;
+import app.item.CD;
+import app.item.DVD;
+import app.item.Item;
+import app.item.Type;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;

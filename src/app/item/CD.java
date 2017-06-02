@@ -1,5 +1,8 @@
+package app.item;
+
 import java.util.ArrayList;
 import java.util.List;
+import app.Main;
 
 /**
  * The CD class that extends from the abstract Item class.

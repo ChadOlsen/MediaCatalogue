@@ -1,3 +1,7 @@
+package app.data;
+
+import app.catalogue.Catalogue;
+
 import java.io.*;
 
 /**

@@ -1,3 +1,5 @@
+package app.item;
+
 import java.io.Serializable;
 
 /**
@@ -54,27 +56,27 @@ public abstract class Item implements Serializable {
         this.type = type;
     }
 
-    String getTitle() {
+    public String getTitle() {
         return title;
     }
 
-    void setTitle(String title) {
+    public void setTitle(String title) {
         this.title = title;
     }
 
-    String getGenre() {
+    public String getGenre() {
         return genre;
     }
 
-    void setGenre(String genre) {
+    public void setGenre(String genre) {
         this.genre = genre;
     }
 
-    String getDuration() {
+    public String getDuration() {
         return duration;
     }
 
-    void setDuration(String duration) {
+    public void setDuration(String duration) {
         this.duration = duration;
     }
 

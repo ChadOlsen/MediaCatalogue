@@ -1,3 +1,7 @@
+package app.item;
+
+import app.Main;
+
 /**
  * The DVD class that extends from the abstract Item class.
  * This class contains functionality to create a new DVD object to add to the catalogue as well as to print a list of
@@ -25,7 +29,7 @@ public class DVD extends Item {
         return leadActor;
     }
 
-    void setLeadActor(String leadActor) {
+    public void setLeadActor(String leadActor) {
         this.leadActor = leadActor;
     }
 
@@ -33,7 +37,7 @@ public class DVD extends Item {
         return leadActress;
     }
 
-    void setLeadActress(String leadActress) {
+    public void setLeadActress(String leadActress) {
         this.leadActress = leadActress;
     }
 

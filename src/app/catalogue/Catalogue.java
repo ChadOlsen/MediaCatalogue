@@ -1,5 +1,10 @@
+package app.catalogue;
+
 import java.io.*;
 import java.util.*;
+import app.item.*;
+import app.Main;
+
 
 /**
  * Created by TwiceAsNice on 2017/04/19.
@@ -22,7 +27,7 @@ public class Catalogue implements Serializable {
      *
      * @param item This is the new Item object to be added to the Catalogue map list.
      */
-    void addItemToList(Item item) {
+    public void addItemToList(Item item) {
         List<Item> list = this.catalogueMap.get(item.getType());
 
         if (list == null) {
@@ -85,7 +90,7 @@ public class Catalogue implements Serializable {
      *
      * @param choice This is the user input to decide on how to do the search.
      */
-    void searchDVD(int choice) {
+    public void searchDVD(int choice) {
         String output = "";
         String newString;
         int count = 0;
@@ -150,7 +155,7 @@ public class Catalogue implements Serializable {
      *
      * @param choice This is the user input to decide on how to do the search.
      */
-    void searchCD(int choice) {
+    public void searchCD(int choice) {
         String output = "";
         String newString;
         boolean isValid = false;
@@ -216,7 +221,7 @@ public class Catalogue implements Serializable {
      * @param item  This is the DVD type object that needs to be deleted from the list.
      * @param index This is the index of the item in the list to be deleted.
      */
-    void deleteItem(Item item, int index) {
+    public void deleteItem(Item item, int index) {
         List<Item> list = this.catalogueMap.get(item.getType());
         if (list.isEmpty()) {
             System.out.println("Could not delete the item, index does not exist!\n" +
@@ -233,7 +238,7 @@ public class Catalogue implements Serializable {
     /**
      * This method prints all the items presently saved in the Catalogue to the console as a list of each type of Item.
      */
-    void printCatalogue() {
+    public void printCatalogue() {
         System.out.println("========================================" + "\n" +
                 "\t\t\t" + "Catalogue Items" + "\n" +
                 "========================================");
@@ -248,7 +253,7 @@ public class Catalogue implements Serializable {
     /**
      * This method prints a Goodbye message when the user enters an input to exit the program.
      */
-    void printGoodBye() {
+    public void printGoodBye() {
         System.out.println("========================");
         System.out.println("GOOD BYE FOR NOW....");
         System.out.println("========================");

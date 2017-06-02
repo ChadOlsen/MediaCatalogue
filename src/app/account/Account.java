@@ -1,4 +1,7 @@
+package app.account;
+
 import java.io.Serializable;
+import app.catalogue.*;
 
 /**
  * This class is for a user Account object to allow a user to login using a username and password and have their
