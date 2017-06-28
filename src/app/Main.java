@@ -4,6 +4,7 @@ import app.account.Account;
 import app.account.AccountManager;
 import app.catalogue.Catalogue;
 import app.catalogue.CataloguePopulator;
+import app.data.DatabaseConnection;
 import app.data.MemoryHandler;
 import app.item.CD;
 import app.item.DVD;
@@ -26,12 +27,10 @@ public class Main {
     private static Catalogue catalogue;
     private static AccountManager accountManager = new AccountManager();
     private static Map<String, Account> registeredAccounts;
-
-    //after asking to add a new account and then entering incorrect admin values, it still
-    //loads a catalogue.
-    //admin account seems to be overwritten.
+    private static DatabaseConnection databaseConnection = new DatabaseConnection();
+    
     public static void main(String[] args) {
-
+        databaseConnection.connectToDatabase();
         boolean quit = false;
 
         while (!quit) {
