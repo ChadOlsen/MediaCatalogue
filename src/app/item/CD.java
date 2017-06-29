@@ -46,6 +46,7 @@ public class CD extends Item {
         this.artists = artists;
     }
 
+
     /**
      * This method will return a string to print out each CD objects fields as a list, it also calls the toString() method
      *
@@ -67,7 +68,7 @@ public class CD extends Item {
         System.out.print("Enter title for new CD:");
         String cdTitle = Main.scanner.nextLine();
 
-        while (cdTitle.equals("")) {
+        while ("".equals(cdTitle)) {
             System.out.println("Invalid CD Title....");
             System.out.print("Enter title for new DVD:");
             cdTitle = Main.scanner.nextLine();
@@ -76,7 +77,7 @@ public class CD extends Item {
         System.out.print("Enter Genre for new CD:");
         String cdGenre = Main.scanner.nextLine();
 
-        while (cdGenre.equals("")) {
+        while ("".equals(cdGenre)) {
             System.out.println("Invalid CD Genre....");
             System.out.print("Enter title for new DVD:");
             cdGenre = Main.scanner.nextLine();
@@ -85,20 +86,30 @@ public class CD extends Item {
         System.out.print("Enter Duration for new CD:");
         String cdDuration = Main.scanner.nextLine();
 
-        while (cdDuration.equals("")) {
+        while ("".equals(cdDuration)) {
             System.out.println("Invalid CD Duration....");
             System.out.print("Enter title for new DVD:");
             cdDuration = Main.scanner.nextLine();
         }
 
+        int newCDTracks;
         System.out.print("Enter number of tracks for new CD:");
-        int newCDTracks = Main.scanner.nextInt();
+        while (!Main.scanner.hasNextInt()){
+            System.out.println("Please enter a valid number:");
+            Main.scanner.next();
+        }
+        newCDTracks = Main.scanner.nextInt();
         setTracks(newCDTracks);
 
         CD newCD = new CD(cdTitle, cdGenre, cdDuration, newCDTracks);
-        System.out.print("Enter number of contributing artists for new CD:");
 
-        int numArtists = Main.scanner.nextInt();
+        int numArtists;
+        System.out.print("Enter number of contributing artists for new CD:");
+        while (!Main.scanner.hasNextInt()){
+            System.out.println("Please enter a valid number:");
+            Main.scanner.next();
+        }
+        numArtists = Main.scanner.nextInt();
         Main.scanner.nextLine();
 
         for (int i = 0; i < numArtists; i++) {

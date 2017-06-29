@@ -62,7 +62,7 @@ public class DVD extends Item {
         System.out.print("Enter title for new DVD:");
         String dvdTitle = Main.scanner.nextLine();
 
-        while (dvdTitle.equals("")) {
+        while ("".equals(dvdTitle)) {
             System.out.println("Invalid DVD Title....");
             System.out.print("Enter title for new DVD:");
             dvdTitle = Main.scanner.nextLine();
@@ -71,7 +71,7 @@ public class DVD extends Item {
         System.out.print("Enter Genre for new DVD:");
         String dvdGenre = Main.scanner.nextLine();
 
-        while (dvdGenre.equals("")) {
+        while ("".equals(dvdGenre)) {
             System.out.println("Invalid DVD Genre....");
             System.out.print("Enter title for new DVD:");
             dvdGenre = Main.scanner.nextLine();
@@ -80,7 +80,7 @@ public class DVD extends Item {
         System.out.print("Enter Duration for new DVD:");
         String dvdDuration = Main.scanner.nextLine();
 
-        while (dvdDuration.equals("")) {
+        while ("".equals(dvdDuration)) {
             System.out.println("Invalid DVD Duration....");
             System.out.print("Enter title for new DVD:");
             dvdDuration = Main.scanner.nextLine();

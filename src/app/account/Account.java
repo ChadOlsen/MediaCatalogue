@@ -14,18 +14,27 @@ public class Account implements Serializable{
     private String userName;
     private String userPassword;
     private Catalogue catalogue;
+    private boolean adminUser;
     private long serialVersionUID = 3L;
 
 
-    public Account(String userName, String userPassword, Catalogue catalogue) {
+    public Account(String userName, String userPassword, Catalogue catalogue, boolean adminUser) {
         this.userName = userName;
         this.userPassword = userPassword;
         this.catalogue = catalogue;
-
+        this.adminUser = adminUser;
     }
 
     public Catalogue getCatalogue() {
         return catalogue;
+    }
+
+    public boolean isAdminUser() {
+        return adminUser;
+    }
+
+    public void setAdminUser(boolean adminUser) {
+        this.adminUser = adminUser;
     }
 
     public void setCatalogue(Catalogue catalogue) {

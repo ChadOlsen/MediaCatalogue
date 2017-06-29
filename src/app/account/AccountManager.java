@@ -47,7 +47,7 @@ public class AccountManager {
      */
     public void readAccount() {
         try (ObjectInputStream accountFile = new ObjectInputStream(new FileInputStream("AccountManager.dat"))) {
-            registeredAccounts = (Map<String, Account>) accountFile.readObject();
+            registeredAccounts = (LinkedHashMap<String, Account>) accountFile.readObject();
         } catch (FileNotFoundException e) {
 
         } catch (IOException io) {

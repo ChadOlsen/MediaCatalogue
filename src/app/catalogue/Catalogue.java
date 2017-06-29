@@ -218,13 +218,13 @@ public class Catalogue implements Serializable {
     /**
      * This method locates an Item object and deletes it from the Map list of that type object.
      *
-     * @param item  This is the DVD type object that needs to be deleted from the list.
-     * @param index This is the index of the item in the list to be deleted.
+     * @param type  This is the DVD type object that needs to be deleted from the list.
+     * @param index This is the index of the type in the list to be deleted.
      */
-    public void deleteItem(Item item, int index) {
-        List<Item> list = this.catalogueMap.get(item.getType());
+    public void deleteItem(Type type, int index) {
+        List<Item> list = this.catalogueMap.get(type);
         if (list.isEmpty()) {
-            System.out.println("Could not delete the item, index does not exist!\n" +
+            System.out.println("Could not delete the type, index does not exist!\n" +
                     "There are only " + list.size() + " items available in the Catalogue, you tried to delete number " + index);
             return;
         }
