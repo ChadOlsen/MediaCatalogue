@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public class AccountManager {
 
-    private Map<String, Account> registeredAccounts = new LinkedHashMap();
+    private Map<String, Account> registeredAccounts;
 
     public AccountManager() {
     }
@@ -47,12 +47,12 @@ public class AccountManager {
      */
     public void readAccount() {
         try (ObjectInputStream accountFile = new ObjectInputStream(new FileInputStream("AccountManager.dat"))) {
-            registeredAccounts = (LinkedHashMap<String, Account>) accountFile.readObject();
-        } catch (FileNotFoundException e) {
-
-        } catch (IOException io) {
-            System.out.println("IOException: " + io.getMessage());
-            io.printStackTrace();
+            setRegisteredAccounts((Map<String, Account>) accountFile.readObject());
+            if (getRegisteredAccounts() == null) {
+                setRegisteredAccounts(new LinkedHashMap<>());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         } catch (ClassNotFoundException e) {
             System.out.println("ClassNotFoundException: " + e.getMessage());
             e.printStackTrace();

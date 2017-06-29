@@ -1,10 +1,13 @@
 package app.catalogue;
 
+import app.Main;
+import app.item.CD;
+import app.item.DVD;
+import app.item.Item;
+import app.item.Type;
+
 import java.io.*;
 import java.util.*;
-import app.item.*;
-import app.Main;
-
 
 /**
  * Created by TwiceAsNice on 2017/04/19.
@@ -28,13 +31,15 @@ public class Catalogue implements Serializable {
      * @param item This is the new Item object to be added to the Catalogue map list.
      */
     public void addItemToList(Item item) {
-        List<Item> list = this.catalogueMap.get(item.getType());
+        if (item == null) {
+            return;
+        }
 
+        List<Item> list = this.catalogueMap.get(item.getType());
         if (list == null) {
             list = new ArrayList<>();
             this.catalogueMap.put(item.getType(), list);
         }
-
         list.add(item);
     }
 
@@ -67,20 +72,29 @@ public class Catalogue implements Serializable {
      * This method allows the user to search for an Item by its Title and return a list of the items that meet the
      * criteria.
      *
-     * @param list        This parameter is the list that the criteria needs to search through.
-     * @param titleSearch This is the input criteria the uses to search through the list of items.
+     * @param list         This parameter is the list that the criteria needs to search through.
+     * @param searchString This is the input criteria the uses to search through the list of items.
      * @return List This method returns a new list of all the Item objects that met the search criteria.
      */
-    private static List<Item> searchByTitle(List<Item> list, String titleSearch) {
-        List<Item> newItem = new ArrayList<>();
+    public static List<Item> searchByTitle(List<Item> list, String searchString) {
+        List<Item> newList = new ArrayList<>();
 
+        if (list == null || list.isEmpty()) {
+            return newList;
+        }
+        if (searchString == null || searchString.isEmpty()){
+            System.out.println("An invalid search criteria has been entered...");
+            return newList;
+        }
         for (Item item : list) {
-            if (item.getTitle().contains(titleSearch)) {
-                newItem.add(item);
+            if (item == null || item.getTitle() == null) {
+                continue;
+            }
+            if (item.getTitle().toLowerCase().contains(searchString.toLowerCase())) {
+                newList.add(item);
             }
         }
-
-        return newItem;
+        return newList;
     }
 
     /**
@@ -222,16 +236,25 @@ public class Catalogue implements Serializable {
      * @param index This is the index of the type in the list to be deleted.
      */
     public void deleteItem(Type type, int index) {
-        List<Item> list = this.catalogueMap.get(type);
-        if (list.isEmpty()) {
-            System.out.println("Could not delete the type, index does not exist!\n" +
-                    "There are only " + list.size() + " items available in the Catalogue, you tried to delete number " + index);
+        if (type == null) {
             return;
         }
+
+        List<Item> list = this.catalogueMap.get(type);
+
+        if (list == null || list.isEmpty()) {
+            System.out.println("Could not delete the type, index does not exist!\n" +
+                    "There are no items available in the Catalogue, you cannot delete items from an empty catalogue...");
+            return;
+        }
+
         if ((index - 1) >= 0 && index <= list.size()) {
             System.out.println(list.get(index - 1).getTitle() + " was removed from the list." + "\n" +
                     "========================================");
             list.remove(index - 1);
+        } else {
+            System.out.println("Could not delete the type, index does not exist!\n" +
+                    "There are only " + list.size() + " items available in the Catalogue, you tried to delete number " + index);
         }
     }
 

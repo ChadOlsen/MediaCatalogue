@@ -24,6 +24,7 @@ public class CD extends Item {
     }
 
     public CD() {
+        setType(Type.CD);
     }
 
     public void addArtist(String artist) {

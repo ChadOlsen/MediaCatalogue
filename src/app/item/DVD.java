@@ -23,6 +23,7 @@ public class DVD extends Item {
     }
 
     public DVD() {
+        setType(Type.DVD);
     }
 
     public String getLeadActor() {
