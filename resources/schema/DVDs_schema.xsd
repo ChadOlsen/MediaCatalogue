@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<schema xmlns="https://www.mediacatalogue.com/">
+    <element name="title" type="string"/>
+    <element name="genre" type="string"/>
+    <element name="duration" type="string"/>
+    <element name="leadActor" type="string"/>
+    <element name="leadActress" type="string"/>
+    <element name="type" type="DVD_Type"/>
+    <simpleType name="DVD_type">
+        <restriction base="string">
+            <enumeration value="DVD"/>
+        </restriction>
+    </simpleType>
+</schema>

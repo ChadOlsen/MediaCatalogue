@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<schema xmlns="https://www.mediacatalogue.com/">
+    <element name="title" type="string"/>
+    <element name="genre" type="string"/>
+    <element name="duration" type="string"/>
+    <element name="tracks" type="int"/>
+    <element name="artists" type="ArrayList"/>
+    <simpleType name="ArrayList">
+        <sequence>
+            <element ref="artistName" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+    </simpleType>
+    <element name="artistName" type="string"/>
+    <element name="type" type="CD_Type"/>
+    <simpleType name="CD_Type">
+        <restriction base="string">
+            <enumeration value="CD"/>
+        </restriction>
+    </simpleType>
+</schema>

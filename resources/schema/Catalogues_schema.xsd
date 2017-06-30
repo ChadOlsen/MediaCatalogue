@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<schema xmlns="https://www.mediacatalogue.com/">
+    <element name="catalogueMap" type="HashMap"/>
+    <complexType name="HashMap">
+        <sequence>
+            <element name="catalogueKey" type="string"/>
+            <element name="CDlist" type="CDArrayList"/>
+            <element name="DVDList" type="DVDArraylist"/>
+        </sequence>
+    </complexType>
+    <complexType name="CDArrayList">
+        <sequence>
+            <element name="cd" type="CDs_schema.xsd"/>
+        </sequence>
+    </complexType>
+    <complexType name="DVDArrayList">
+        <sequence>
+            <element name="cd" type="DVDs_schema.xsd"/>
+        </sequence>
+    </complexType>
+</schema>
