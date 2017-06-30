@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<account>
+    <username>admin</username>
+    <password>admin</password>
+    <catalogue>
+        <catalogueMap>
+            <key>cd
+                <cd>
+                    <title>Now 45</title>
+                    <genre>Pop</genre>
+                    <duration>qhr30mins</duration>
+                    <tracks>12</tracks>
+                    <artists>
+                        <artistName>Bob</artistName>
+                        <artistName>Sam</artistName>
+                    </artists>
+                </cd>
+            </key>
+            <key>dvd
+                <dvd>
+                    <title>Titanic</title>
+                    <genre>Drama</genre>
+                    <duration>2hrs</duration>
+                    <leadActor>Leonardo di Caprio</leadActor>
+                    <leadActress>Kate Winslet</leadActress>
+                </dvd>
+            </key>
+        </catalogueMap>
+    </catalogue>
+    <adminuser>true</adminuser>
+</account>

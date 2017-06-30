@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--Item dvd1 = new DVD("Titanic", "Drama", "2hrs",-->
+<!--"Leonardo di Caprio", "Kate Winslet");-->
+<dvd>
+    <title>Titanic</title>
+    <genre>Drama</genre>
+    <duration>2hrs</duration>
+    <leadActor>Leonardo di Caprio</leadActor>
+    <leadActress>Kate Winslet</leadActress>
+</dvd>
+

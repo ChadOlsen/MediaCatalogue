@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--CD cd1 = new CD("Now 45", "Pop", "1hr30mins", 12);-->
+<!--cd1.addArtist("Bob");-->
+<!--cd1.addArtist("Sam");-->
+<cd>
+    <title>Now 45</title>
+    <genre>Pop</genre>
+    <duration>qhr30mins</duration>
+    <tracks>12</tracks>
+    <artists>
+        <artistName>Bob</artistName>
+        <artistName>Sam</artistName>
+    </artists>
+</cd>
