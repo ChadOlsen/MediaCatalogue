@@ -4,6 +4,7 @@ import app.account.Account;
 import app.account.AccountManager;
 import app.catalogue.Catalogue;
 import app.catalogue.CataloguePopulator;
+import app.data.DatabaseConnection;
 import app.item.CD;
 import app.item.DVD;
 import app.item.Item;
@@ -24,8 +25,10 @@ public class Main {
     private static AccountManager accountManager = new AccountManager();
     private static Map<String, Account> registeredAccounts;
     private static Set registeredUserNames;
+    private static DatabaseConnection databaseConnection = new DatabaseConnection();
 
     public static void main(String[] args) {
+        databaseConnection.connectToDatabase();
         boolean quit = false;
 
         while (!quit) {
@@ -34,7 +37,7 @@ public class Main {
             registeredAccounts = accountManager.getRegisteredAccounts();
 
             int option;
-            while (!scanner.hasNextInt()){
+            while (!scanner.hasNextInt()) {
                 System.out.println("Please enter a valid option number");
                 scanner.next();
             }
@@ -76,11 +79,12 @@ public class Main {
             printOptions();
 
             int option;
-            while (!scanner.hasNextInt()){
+            while (!scanner.hasNextInt()) {
                 System.out.println("Please enter a valid option number:");
                 scanner.next();
             }
             option = scanner.nextInt();
+            scanner.nextLine();
             switch (option) {
                 case 1:
                     catalogue.printCatalogue();
@@ -89,7 +93,7 @@ public class Main {
                     System.out.println("========================");
                     System.out.println("\t\tCDs");
                     System.out.println("========================");
-                    if (catalogue.getCatalogueMap().get(Type.CD).isEmpty()){
+                    if (catalogue.getCatalogueMap().get(Type.CD).isEmpty()) {
                         System.out.println("There are no CD items in the Catalogue to display..\n");
                     } else {
                         for (Item cd : catalogue.getCatalogueMap().get(Type.CD)) {
@@ -101,7 +105,7 @@ public class Main {
                     System.out.println("========================");
                     System.out.println("\t\tDVDs");
                     System.out.println("========================");
-                    if (catalogue.getCatalogueMap().get(Type.DVD).isEmpty()){
+                    if (catalogue.getCatalogueMap().get(Type.DVD).isEmpty()) {
                         System.out.println("There are no DVD items in the Catalogue to display..\n");
                     } else {
                         for (Item cd : catalogue.getCatalogueMap().get(Type.DVD)) {
@@ -112,7 +116,7 @@ public class Main {
                 case 4:
                     addItem();
 
-                    while (!scanner.hasNextInt()){
+                    while (!scanner.hasNextInt()) {
                         System.out.println("Please enter a valid option number:");
                         scanner.next();
                     }
@@ -130,7 +134,7 @@ public class Main {
                 case 5:
                     deleteItem();
 
-                    while (!scanner.hasNextInt()){
+                    while (!scanner.hasNextInt()) {
                         System.out.println("Please enter a valid option number:");
                         scanner.next();
                     }
@@ -139,7 +143,7 @@ public class Main {
                     switch (option) {
                         case 1:
                             removeItem(Type.DVD);
-                            while (!scanner.hasNextInt()){
+                            while (!scanner.hasNextInt()) {
                                 System.out.println("Please enter a valid option number:");
                                 scanner.next();
                             }
@@ -149,7 +153,7 @@ public class Main {
                             break;
                         case 2:
                             removeItem(Type.CD);
-                            while (!scanner.hasNextInt()){
+                            while (!scanner.hasNextInt()) {
                                 System.out.println("Please enter a valid option number:");
                                 scanner.next();
                             }
@@ -162,7 +166,7 @@ public class Main {
                 case 6:
                     searchItem();
 
-                    while (!scanner.hasNextInt()){
+                    while (!scanner.hasNextInt()) {
                         System.out.println("Please enter a valid option number:");
                         scanner.next();
                     }
@@ -172,7 +176,7 @@ public class Main {
                         case 1:
                             searchForDVD();
 
-                            while (!scanner.hasNextInt()){
+                            while (!scanner.hasNextInt()) {
                                 System.out.println("Please enter a valid option number:");
                                 scanner.next();
                             }
@@ -183,7 +187,7 @@ public class Main {
                         case 2:
                             searchForCD();
 
-                            while (!scanner.hasNextInt()){
+                            while (!scanner.hasNextInt()) {
                                 System.out.println("Please enter a valid option number:");
                                 scanner.next();
                             }
@@ -192,8 +196,10 @@ public class Main {
                             catalogue.searchCD(option);
                             break;
                     }
-                    break;
                 case 7:
+                    linkCatalogueToAccount(userAccount);
+                    break;
+                case 8:
                     userAccount.setCatalogue(catalogue);
                     registeredAccounts.put(userAccount.getUserName(), userAccount);
                     System.out.println("===========================\n" +
@@ -204,6 +210,43 @@ public class Main {
                     break;
             }
         }
+    }
+
+    private static String enterLinkAccountUsername() {
+        System.out.println("Please enter the username for the Account you want to link to your Catalogue: ");
+        String username = scanner.nextLine();
+        while ("".equals(username)) {
+            System.out.println("Please enter the username for the Account you want to link to your Catalogue: ");
+            username = scanner.nextLine();
+        }
+        return username;
+    }
+
+    private static String enterLinkAccountPassword(Account currentUser, String username) {
+        System.out.println(currentUser.getUserName() + ", Please enter " + username + "'s password to continue:");
+        String password = scanner.nextLine();
+        while ("".equals(password)) {
+            System.out.println(currentUser.getUserName() + ", Please enter " + username + "'s password to continue:");
+            password = scanner.nextLine();
+        }
+        return password;
+    }
+
+    private static void linkCatalogueToAccount(Account currentUser) {
+        String username = enterLinkAccountUsername();
+        String password = enterLinkAccountPassword(currentUser, username);
+        if (registeredAccounts.get(username) == null || !username.equals(registeredAccounts.get(username).getUserName())
+                || !password.equals(registeredAccounts.get(username).getUserPassword())) {
+            System.out.println("=================================\n" +
+                    "Details entered are incorrect...\n" +
+                    "That user does not exist...\n" +
+                    "=================================");
+            return;
+        }
+        registeredAccounts.get(username).setCatalogue(currentUser.getCatalogue());
+        System.out.println("=================================\n" +
+                "Successfully Linked  your catalogue to " + username + "'s account...\n" +
+                "=================================");
     }
 
     private static void createNewAccount() {
@@ -221,6 +264,9 @@ public class Main {
         String userName;
         String password;
 
+        if (registeredAccounts == null) {
+            registeredAccounts = new LinkedHashMap<>();
+        }
         if (registeredAccounts.isEmpty()) {
             System.err.println("Setting up system for first use...");
             String adminUsername = enterUserName();
@@ -252,7 +298,7 @@ public class Main {
                 System.err.println("User account does not exist...");
                 createNewAccount();
                 int choice;
-                while (!scanner.hasNextInt()){
+                while (!scanner.hasNextInt()) {
                     System.out.println("Please enter a valid option number:");
                     scanner.next();
                 }
@@ -422,7 +468,8 @@ public class Main {
                 "4. Add item to catalogue" + "\n" +
                 "5. Delete item from catalogue" + "\n" +
                 "6. Search for item in the catalogue" + "\n" +
-                "7. Log out" + "\n" +
+                "7. Link Catalogue to another account.\n" +
+                "8. Log out" + "\n" +
                 "========================================");
         System.out.println("Enter option: ");
     }

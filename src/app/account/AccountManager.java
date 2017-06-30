@@ -51,6 +51,8 @@ public class AccountManager {
             if (getRegisteredAccounts() == null) {
                 setRegisteredAccounts(new LinkedHashMap<>());
             }
+        }catch ( FileNotFoundException e){
+            System.out.println("No file found, creating new file");
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
