@@ -10,7 +10,10 @@ import java.io.*;
 import java.util.*;
 
 /**
- * Created by TwiceAsNice on 2017/04/19.
+ * This class contains all the functionality to add, delete and search for an Item within the Catalogue.
+ *
+ * @author chad_olsen
+ * @since 2017/04/19.
  */
 public class Catalogue implements Serializable {
 

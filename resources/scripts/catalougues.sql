@@ -1,0 +1,3 @@
+CREATE TABLE Catalogue (
+    id INT AUTO_INCREMENT
+);
