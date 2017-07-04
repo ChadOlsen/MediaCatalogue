@@ -1,0 +1,104 @@
+body {
+    background-color: lightblue;
+}
+
+form {
+    text-align: right;
+    padding: 10px;
+    color: white;
+    width: max-content;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 2px solid darkblue;
+    border-radius: 10px;
+    background-color: blue;
+}
+
+#selectorForm {
+    margin-top: 5px;
+    text-align: center;
+}
+
+header {
+    padding: 10px;
+    background-color: blue;
+    border-radius: 10px;
+}
+
+footer {
+    padding: 10px;
+    width: 98.75%;
+    bottom: 0;
+    margin-right: 1px;
+    background-color: blue;
+    color: white;
+    border-radius: 10px;    
+}
+
+button {
+    box-shadow: 1px 1px 1px 1px darkblue;
+    padding: 5px;
+    background-color: blue;
+    color: white;
+    border: 2px solid darkblue;
+    margin: 10px;
+    border-radius: 5px;
+}
+
+.tabs {
+    margin-left: 100px;
+    color: white;
+    font-size: 20px;
+    text-decoration: none;
+    text-align: center;
+}
+
+.tabs:hover {
+    font-size: 24px;
+}
+
+.tabs:active {
+   background-color: lightblue; 
+}
+#logoImage{
+    width: 150px;
+    border-radius: 8px;
+}
+
+#tabIcon {
+    width: 15px;
+}
+
+#activeTab {
+    padding: 5px;
+    border-radius: 2px;
+    box-shadow: 1px 1px 1px 1px lightblue;
+}
+
+#aboutImage {
+    height: 150px;
+    margin-top: 10px;
+}
+
+table{
+    height: 150px;
+    overflow: auto;
+    text-align: center;
+    background-color: blue;
+    border-radius: 8px;
+}
+
+.editOrDeleteIcon {
+    width: 10px;
+    box-shadow: 1px 1px 1px 1px lightblue;
+}
+
+.sortIcon {
+    border-radius: 1px;
+    margin-left: 5px;
+    width: 10px;
+}
+
+.sortIcon:active {
+    box-shadow: 1px 1px 1px 1px lightblue;
+}

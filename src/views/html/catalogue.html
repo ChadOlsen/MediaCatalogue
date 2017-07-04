@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Media Catalogue - Catalogue</title>
+        <link rel="stylesheet" href="../../../src/views/css/catalogue_styles.css">
+        <link rel="stylesheet" href="../../../src/views/css/blue_theme_styles.css" id="blueTheme">
+        <link rel="stylesheet" href="../../../src/views/css/red_theme_styles.css" id="redTheme">
+        <link rel="stylesheet" href="../../../src/views/css/green_theme_styles.css" id="greenTheme">
+        <script src="../../../src/views/js/utilities.js"></script>
+        <script src="../../../src/views/js/catalogue.js"></script>
+    </head>
+    <body id="catalogueBody" onload="readSettings(), loadEditedItem()">
+        <header>
+            <a id="logo" href="home.html"><img id="logoImage" src="../../../images/MediaCatalogueHeader[150].png" alt="Media Catalogue logo"></a>
+            <a class="tabs" href="home.html">Home</a>
+            <a class="tabs" href="about.html">About</a>
+            <a id="activeTab" class="tabs" href="catalogue.html">Catalogue</a>
+            <a class="tabs" href="web_settings.html">Web-Settings</a>
+        </header>
+        <div align="center" onload="drawTable()">
+            <form id="selectorForm" action="">
+                <legend>Select Item to add to the catalogue:</legend>
+                <input id="dvdRadio" onchange="dvdButtonCheck()" type="radio" name="itemSelector" value="dvd" checked><label for="dvdRadio">DVD</label>
+                <input id="cdRadio" onchange="cdButtonCheck()" type="radio" name="itemSelector" value="cd"><label for="cdRadio">CD</label>
+            </form>
+            <form id="dvdForm" onsubmit="saveNewDVDItem()">
+                <legend>Edit DVD Information:</legend>
+                <label for="dvdTitle">Title: </label><input id="dvdTitle" value="" type="text" required autofocus><br>
+                <label for="dvdGenre">Genre: </label><input id="dvdGenre" value="" type="text" required><br>
+                <label for="dvdDuration">Duration: </label><input id="dvdDuration" value="" type="text" required><br>
+                <label for="leadActor">Lead Actor: </label><input id="leadActor" value="" type="text" required><br>
+                <label for="leadActress">Lead Actress: </label><input id="leadActress" value="" type="text" required><br>
+                <input  type="submit" value="Save">
+            </form>
+            <form id="cdForm" style="display:none" onsubmit="saveNewCDItem(this)">
+                <legend>Edit CD Information:</legend>
+                <label for="cdTitle">Title: </label><input id="cdTitle" value="" type="text" required autofocus><br>
+                <label for="cdGenre">Genre: </label><input id="cdGenre" value="" type="text" required><br>
+                <label for="cdDuration">Duration: </label><input id="cdDuration" value="" type="text" required><br>
+                <label for="tracks">No. of Tracks: </label><input id="tracks" value="" type="text" required><br>
+                <label for="artists">Contributing artists: </label><textarea id="artists" required></textarea><br>
+                <input type="submit" value="Save">
+            </form>
+        </div>
+        <footer>
+            <h6 id="footerLabel">&copy 2017 Media Catalogue</h6>
+        </footer>
+    </body>
+</html>

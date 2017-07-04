@@ -1,0 +1,22 @@
+
+#selectorForm {
+    text-align: center
+}
+
+legend {
+    text-align: center;
+    margin-bottom: 10px;
+    width: auto;
+}
+
+input {
+    text-align: left;
+    margin-top: 5px;
+}
+
+textarea {
+    text-align: left;
+    margin-top: 5px;
+    height: 100px;
+    overflow: auto;
+}
