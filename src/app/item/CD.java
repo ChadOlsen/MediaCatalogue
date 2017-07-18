@@ -1,8 +1,12 @@
 package app.item;
 
+import app.Main;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
 import java.util.ArrayList;
 import java.util.List;
-import app.Main;
 
 /**
  * The CD class that extends from the abstract Item class.
@@ -13,13 +17,14 @@ import app.Main;
  * @author Chad Olsen
  * @since 2017/04/19.
  */
+@JsonTypeName("CD")
 public class CD extends Item {
 
     private int tracks; // Number of tracks on CD for CD object.
     private List<String> artists = new ArrayList<>(); // List of names of contributing artists on CD for CD object.
 
-    public CD(String title, String genre, String duration, int tracks) {
-        super(title, genre, duration, Type.CD);
+    public CD(String title, String genre, String duration, int id, int tracks) {
+        super(title, genre, duration, id, Type.CD);
         this.tracks = tracks;
     }
 
@@ -31,18 +36,22 @@ public class CD extends Item {
         this.artists.add(artist);
     }
 
+    @JsonGetter("tracks")
     private int getTracks() {
         return tracks;
     }
 
+    @JsonSetter("tracks")
     public void setTracks(int tracks) {
         this.tracks = tracks;
     }
 
+    @JsonGetter("artists")
     public List<String> getArtists() {
         return artists;
     }
 
+    @JsonSetter("artists")
     public void setArtists(List<String> artists) {
         this.artists = artists;
     }
@@ -95,18 +104,18 @@ public class CD extends Item {
 
         int newCDTracks;
         System.out.print("Enter number of tracks for new CD:");
-        while (!Main.scanner.hasNextInt()){
+        while (!Main.scanner.hasNextInt()) {
             System.out.println("Please enter a valid number:");
             Main.scanner.next();
         }
         newCDTracks = Main.scanner.nextInt();
         setTracks(newCDTracks);
 
-        CD newCD = new CD(cdTitle, cdGenre, cdDuration, newCDTracks);
+        CD newCD = new CD(cdTitle, cdGenre, cdDuration, 1, newCDTracks);
 
         int numArtists;
         System.out.print("Enter number of contributing artists for new CD:");
-        while (!Main.scanner.hasNextInt()){
+        while (!Main.scanner.hasNextInt()) {
             System.out.println("Please enter a valid number:");
             Main.scanner.next();
         }
@@ -128,20 +137,23 @@ public class CD extends Item {
      *
      * @return String This method returns the created string
      */
-    @Override
-    public String toString() {
-
-        String printName = "";
-        for (String name : this.artists) {
-            printName += name + "\n";
-        }
-
-        return ("Album name: " + this.getTitle() + "\n" +
-                "Album Genre: " + this.getGenre() + "\n" +
-                "Duration: " + this.getDuration() + "\n" +
-                "Number of tracks: " + this.getTracks() + "\n" +
-                "Contributing Artists: " + "\n" +
-                "========================" + "\n" +
-                printName + "\n" + "========================");
-    }
+//    @Override
+//    public String toString() {
+//        StringBuilder printName = new StringBuilder();
+//        Iterator iterator = this.artists.listIterator();
+//        printName.append("[");
+//        while (iterator.hasNext()) {
+//            printName.append("\"");
+//            printName.append(iterator.next());
+//            printName.append("\"");
+//
+//            if (iterator.hasNext()){
+//                printName.append(",");
+//            }
+//        }
+//        printName.append("]");
+//
+//        return ("{\"cdTitle\": \"" + this.getTitle() + "\",\"cdGenre\": \"" + this.getGenre() + "\",\"cdDuration\": \"" + this.getDuration() +
+//                "\",\"tracks\": " + this.getTracks() + ",\"artists\": " + printName + ",\"cdId\": " + this.getId() + "}");
+//    }
 }

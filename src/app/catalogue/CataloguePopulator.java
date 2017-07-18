@@ -18,7 +18,7 @@ public class CataloguePopulator {
     public static Catalogue populateCatalogue() {
         Catalogue catalogue = new Catalogue();
 
-        CD cd1 = new CD("Now 45", "Pop", "1hr30mins", 12);
+        CD cd1 = new CD("Now 45", "Pop", "1hr30mins",1, 12);
         cd1.addArtist("Bob");
         cd1.addArtist("Sam");
 
@@ -31,7 +31,7 @@ public class CataloguePopulator {
         cd2.addArtist("AC/DC");
         cd2.addArtist("Aerosmith");
 
-        Item dvd1 = new DVD("Titanic", "Drama", "2hrs",
+        Item dvd1 = new DVD("Titanic", "Drama", "2hrs",1,
                 "Leonardo di Caprio", "Kate Winslet");
 
         DVD dvd2 = new DVD();

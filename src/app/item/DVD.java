@@ -1,6 +1,9 @@
 package app.item;
 
 import app.Main;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * The DVD class that extends from the abstract Item class.
@@ -11,13 +14,14 @@ import app.Main;
  * @author Chad Olsen
  * @since 2017/04/19.
  */
+@JsonTypeName("DVD")
 public class DVD extends Item {
 
     private String leadActor; // Lead actor of the film for DVD object.
     private String leadActress; // Lead actress of film for DVD object.
 
-    public DVD(String title, String genre, String duration, String leadActor, String leadActress) {
-        super(title, genre, duration, Type.DVD);
+    public DVD(String title, String genre, String duration, int id, String leadActor, String leadActress) {
+        super(title, genre, duration, id, Type.DVD);
         this.leadActor = leadActor;
         this.leadActress = leadActress;
     }
@@ -26,18 +30,22 @@ public class DVD extends Item {
         setType(Type.DVD);
     }
 
+    @JsonGetter("leadActor")
     public String getLeadActor() {
         return leadActor;
     }
 
+    @JsonSetter("leadActor")
     public void setLeadActor(String leadActor) {
         this.leadActor = leadActor;
     }
 
+    @JsonGetter("leadActress")
     public String getLeadActress() {
         return leadActress;
     }
 
+    @JsonSetter("leadActress")
     public void setLeadActress(String leadActress) {
         this.leadActress = leadActress;
     }
@@ -93,7 +101,7 @@ public class DVD extends Item {
         String leadActress = Main.scanner.nextLine();
 
         System.out.println("New DVD is added to catalogue");
-        return new DVD(dvdTitle, dvdGenre, dvdDuration, leadActor, leadActress);
+        return new DVD(dvdTitle, dvdGenre, dvdDuration, 1,leadActor, leadActress);
     }
 
     /**
@@ -101,13 +109,9 @@ public class DVD extends Item {
      *
      * @return String This method returns the created string
      */
-    @Override
-    public String toString() {
-        return ("Movie title: " + this.getTitle() + "\n" +
-                "Movie Genre: " + this.getGenre() + "\n" +
-                "Duration: " + this.getDuration() + "\n" +
-                "Lead Actor: " + this.getLeadActor() + "\n" +
-                "Lead Actress: " + this.getLeadActress() + "\n" +
-                "========================");
-    }
+//    @Override
+//    public String toString() {
+//        return ("{\"dvdTitle\": \"" + this.getTitle() + "\",\"dvdGenre\": \"" + this.getGenre() + "\",\"dvdDuration\": \"" + this.getDuration() +
+//                "\",\"leadActor\": \"" + this.getLeadActor() + "\",\"leadActress\": \"" + this.getLeadActress() + "\",\"dvdId\": " + this.getId() + "}");
+//    }
 }

@@ -1,10 +1,9 @@
 package app.item;
 
 import app.catalogue.Catalogue;
-import app.catalogue.CataloguePopulator;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * This class will test the functionality of the toString method for the CD object.
@@ -15,7 +14,7 @@ import static org.junit.Assert.*;
 public class CDTest {
     @Test
     public void toStringTest() throws Exception {
-        CD cd = new CD("Now 45", "Pop", "1hr30mins", 12);
+        CD cd = new CD("Now 45", "Pop", "1hr30mins",1, 12);
         cd.addArtist("Bob");
         cd.addArtist("Sam");
 

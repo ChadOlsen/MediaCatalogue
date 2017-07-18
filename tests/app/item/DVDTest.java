@@ -1,10 +1,8 @@
 package app.item;
 
-import app.catalogue.Catalogue;
-import app.catalogue.CataloguePopulator;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * This class will test the functionality of the toString method for the DVD object.
@@ -15,7 +13,7 @@ import static org.junit.Assert.*;
 public class DVDTest {
     @Test
     public void toStringTest() throws Exception {
-        Item dvd = new DVD("Titanic", "Drama", "2hrs", "Leonardo di Caprio", "Kate Winslet");
+        Item dvd = new DVD("Titanic", "Drama", "2hrs", 1, "Leonardo di Caprio", "Kate Winslet");
 
         String catalogueString = "Movie title: Titanic\n" +
                 "Movie Genre: Drama\n" +

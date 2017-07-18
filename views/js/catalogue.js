@@ -4,28 +4,42 @@
  */
 
 function loadEditedItem() {
-    if (getStringObjectFromCookie("dvdID") != ""){
-        var index = parseInt(getStringObjectFromCookie("dvdID"));
-        var dvdListStr = getStringObjectFromCookie("dvdlist");
-        var dvdListObj = JSON.parse(dvdListStr);
+    var dvdIndex = localStorage.getItem("dvdId");
+    var cdIndex = localStorage.getItem("cdId");
+    var dvdListObj;
+    var cdListObj;
 
-        for (var i = 0; i<dvdListObj.length; i++){
+    if (dvdIndex !== null || "" !== dvdIndex) {
+        var dvdListStr = localStorage.getItem("dvdResponse");
+        if (dvdListStr === null || "" === dvdListStr) {
+            dvdListObj = [];
+            localStorage.setItem("dvdResponse", dvdListObj);
+        } else {
+            dvdListObj = JSON.parse(dvdListStr);
+        }
+
+
+        for (var i = 0; i < dvdListObj.length; i++) {
             var dvd = dvdListObj[i];
-            if (dvd.id == index){
+            if (dvd.id === parseInt(dvdIndex)) {
                 loadEditDVDForm(dvd);
                 return;
             }
         }
     }
 
-    if (getStringObjectFromCookie("cdID") != ""){
-        index = parseInt(getStringObjectFromCookie("cdID"));
-        var cdListStr = getStringObjectFromCookie("cdlist");
-        var cdListObj = JSON.parse(cdListStr);
+    if (cdIndex !== null || "" !== cdIndex) {
+        var cdListStr = localStorage.getItem("cdResponse");
+        if (cdListStr === null || "" === cdListStr) {
+            cdListObj = [];
+            localStorage.setItem("cdResponse", cdListObj);
+        } else {
+            cdListObj = JSON.parse(cdListStr);
+        }
 
-        for (var j = 0; j<cdListObj.length; j++){
+        for (var j = 0; j < cdListObj.length; j++) {
             var cd = cdListObj[j];
-            if (cd.id == index){
+            if (cd.id === parseInt(cdIndex)) {
                 loadEditCDForm(cd);
                 return;
             }
@@ -44,7 +58,7 @@ function cdButtonCheck() {
 }
 
 function saveNewDVDItem() {
-    var dvdListStr = getStringObjectFromCookie("dvdlist");
+    var dvdListStr = localStorage.getItem("dvdResponse");
     var dvdListObj;
     var autoIncrement = 0;
 
@@ -54,9 +68,9 @@ function saveNewDVDItem() {
     var leadActor = document.getElementById("leadActor");
     var leadActress = document.getElementById("leadActress");
 
-    if (getStringObjectFromCookie("dvdID") == "") {
-        if (dvdListStr == "") {
-            dvdListObj = new Array();
+    if (localStorage.getItem("dvdId") === null || "" === localStorage.getItem("dvdId")) {
+        if (dvdListStr === null || "" === dvdListStr) {
+            dvdListObj = [];
             autoIncrement = 0;
         } else {
             dvdListObj = JSON.parse(dvdListStr);
@@ -72,26 +86,27 @@ function saveNewDVDItem() {
 
         if (confirmation) {
             var dvdObject = {
+                "type": "DVD",
                 "title": dvdTitle.value,
                 "genre": dvdGenre.value,
                 "duration": dvdDuration.value,
+                "id": autoIncrement,
                 "leadActor": leadActor.value,
-                "leadActress": leadActress.value,
-                "id": autoIncrement
+                "leadActress": leadActress.value
             };
 
             var index = dvdListObj.length;
             dvdListObj[index] = dvdObject;
             dvdListStr = JSON.stringify(dvdListObj);
-            setStringObjectOnCookie("dvdlist", dvdListStr);
+            setJSONStringOnDvdServlet(dvdListStr, "save");
             return;
         }
     }
 
     dvdListObj = JSON.parse(dvdListStr);
-    var id = parseInt(getStringObjectFromCookie("dvdID"));
+    var id = parseInt(localStorage.getItem("dvdId"));
 
-    confirmation = confirm("You are about to save your edited CD Item\n" +
+    confirmation = confirm("You are about to save your edited DVD Item\n" +
         "Title: " + dvdTitle.value + "\n" +
         "Genre: " + dvdGenre.value + "\n" +
         "Duration: " + dvdDuration.value + "\n" +
@@ -100,23 +115,24 @@ function saveNewDVDItem() {
 
     if (confirmation) {
         dvdObject = {
+            "type": "DVD",
             "title": dvdTitle.value,
             "genre": dvdGenre.value,
             "duration": dvdDuration.value,
+            "id": id,
             "leadActor": leadActor.value,
-            "leadActress": leadActress.value,
-            "id": id
+            "leadActress": leadActress.value
         };
 
         dvdListObj[id] = dvdObject;
         dvdListStr = JSON.stringify(dvdListObj);
-        setStringObjectOnCookie("dvdlist", dvdListStr);
-        setStringObjectOnCookie("dvdID", "");
+        setJSONStringOnDvdServlet(dvdListStr, "save");
+        localStorage.setItem("dvdId", "");
     }
 }
 
 function saveNewCDItem() {
-    var cdListStr = getStringObjectFromCookie("cdlist");
+    var cdListStr = localStorage.getItem("cdResponse");
     var cdListObj;
     var autoIncrement = 0;
 
@@ -126,63 +142,66 @@ function saveNewCDItem() {
     var tracks = document.getElementById("tracks");
     var artists = document.getElementById("artists");
 
-    if (getStringObjectFromCookie("cdID") == "") {
-        if (cdListStr == "") {
-            cdListObj = new Array();
+    if (localStorage.getItem("cdId") === null || "" === localStorage.getItem("cdId")) {
+        if (cdListStr === null || "" === cdListStr) {
+            cdListObj = [];
             autoIncrement = 0;
         } else {
             cdListObj = JSON.parse(cdListStr);
             autoIncrement = cdListObj.length;
         }
 
+        var artistArray = artists.value.split("\\n");
         var confirmation = confirm("You are about to add save a new CD Item\n" +
             "Title: " + cdTitle.value + "\n" +
             "Genre: " + cdGenre.value + "\n" +
             "Duration: " + cdDuration.value + "\n" +
             "No. of Tracks: " + tracks.value + "\n" +
-            "Contributing Artists: " + artists.value);
+            "Contributing Artists: " + artistArray);
 
         if (confirmation) {
             var cdObject = {
+                "type": "CD",
                 "title": cdTitle.value,
                 "genre": cdGenre.value,
                 "duration": cdDuration.value,
-                "noOfTracks": tracks.value,
-                "contributingArtists": artists.value,
-                "id": autoIncrement
+                "id": autoIncrement,
+                "tracks": tracks.value,
+                "artists": artistArray
             };
 
             var index = cdListObj.length;
             cdListObj[index] = cdObject;
             cdListStr = JSON.stringify(cdListObj);
-            setStringObjectOnCookie("cdlist", cdListStr);
+            setJSONStringOnCdServlet(cdListStr, "save");
             return;
         }
     }
 
     cdListObj = JSON.parse(cdListStr);
-    var id = parseInt(getStringObjectFromCookie("cdID"));
+    var id = parseInt(localStorage.getItem("cdId"));
 
     confirmation = confirm("You are about to save your edited CD Item\n" +
         "Title: " + cdTitle.value + "\n" +
         "Genre: " + cdGenre.value + "\n" +
         "Duration: " + cdDuration.value + "\n" +
         "No. of Tracks: " + tracks.value + "\n" +
-        "Contributing Artists: " + artists.value);
+        "Contributing Artists: " + artistArray);
 
     if (confirmation) {
         cdObject = {
+            "type": "CD",
             "title": cdTitle.value,
             "genre": cdGenre.value,
             "duration": cdDuration.value,
-            "noOfTracks": tracks.value,
-            "contributingArtists": artists.value,
-            "id": id
+            "id": id,
+            "tracks": tracks.value,
+            "artists": artistArray
         };
 
         cdListObj[id] = cdObject;
         cdListStr = JSON.stringify(cdListObj);
-        setStringObjectOnCookie("cdlist", cdListStr);
-        setStringObjectOnCookie("cdID", "");
+        setJSONStringOnCdServlet(cdListStr, "save");
+        localStorage.setItem("cdId", "");
     }
 }

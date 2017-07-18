@@ -22,18 +22,22 @@ function displayCDTable() {
 function deleteDVDEntry(row) {
     var index = row.parentNode.parentNode.rowIndex;
 
-    if (confirm("Are you sure you want to delete this entry from the DVD Table?") === true) {
-        var listOfAllDVDsStr = getStringObjectFromCookie("dvdlist");
+    if (confirm("Are you sure you want to delete this entry from the DVD Table?")) {
+        var listOfAllDVDsStr = localStorage.getItem("dvdResponse");
         var listOfAllDVDsObj = JSON.parse(listOfAllDVDsStr);
 
         for (var r = 0; r < listOfAllDVDsObj.length; r++) {
             var aDVDObject = listOfAllDVDsObj[r];
             var ind = aDVDObject.id;
-            if ((index - 1) == ind) {
+            if ((index - 1) === ind) {
                 document.getElementById("dvdTable").deleteRow(index);
                 listOfAllDVDsObj.splice(ind, 1);
-                var newValue = JSON.stringify(listOfAllDVDsObj);
-                setStringObjectOnCookie("dvdlist", newValue);
+                if (listOfAllDVDsObj.length > 0){
+                    var newValue = JSON.stringify(listOfAllDVDsObj);
+                } else {
+                    newValue = [];
+                }
+                setJSONStringOnDvdServlet(newValue, "delete");
             }
         }
     }
@@ -42,25 +46,29 @@ function deleteDVDEntry(row) {
 function deleteCDEntry(row) {
     var index = row.parentNode.parentNode.rowIndex;
 
-    if (confirm("Are you sure you want to delete this entry from the CD Table?") === true) {
-        var listOfAllCDsStr = getStringObjectFromCookie("cdlist");
+    if (confirm("Are you sure you want to delete this entry from the CD Table?")) {
+        var listOfAllCDsStr = localStorage.getItem("cdResponse");
         var listOfAllCDsObj = JSON.parse(listOfAllCDsStr);
 
         for (var r = 0; r < listOfAllCDsObj.length; r++) {
             var aCDObject = listOfAllCDsObj[r];
             var ind = aCDObject.id;
-            if ((index - 1) == ind) {
+            if ((index - 1) === ind) {
                 document.getElementById("cdTable").deleteRow(index);
                 listOfAllCDsObj.splice(ind, 1);
-                var newValue = JSON.stringify(listOfAllCDsObj);
-                setStringObjectOnCookie("cdlist", newValue);
+                if (listOfAllCDsObj.length > 0){
+                    var newValue = JSON.stringify(listOfAllCDsObj);
+                } else {
+                    newValue = [];
+                }
+                setJSONStringOnCdServlet(newValue, "delete");
             }
         }
     }
 }
 
 function drawTable() {
-    var listOfAllDVDsStr = getStringObjectFromCookie("dvdlist");
+    var listOfAllDVDsStr = localStorage.getItem("dvdResponse");
     var listOfAllDVDsObj = JSON.parse(listOfAllDVDsStr);
 
     var tbl = document.getElementById("dvdTable");
@@ -75,13 +83,13 @@ function drawTable() {
         addCol(aDVDObject.duration, dvdRow);
         addCol(aDVDObject.leadActor, dvdRow);
         addCol(aDVDObject.leadActress, dvdRow);
-        addColImage("../../../images/EditButtonImage.png", dvdRow, "dvdEdit");
-        addColImage("../../../images/DeleteButtonImage.png", dvdRow, "dvdDelete");
+        addColImage("../../images/EditButtonImage.png", dvdRow, "dvdEdit");
+        addColImage("../../images/DeleteButtonImage.png", dvdRow, "dvdDelete");
 
         tbl.appendChild(dvdRow); // add the dvdRow to the end of the table body
     }
 
-    var listOfAllCDsStr = getStringObjectFromCookie("cdlist");
+    var listOfAllCDsStr = localStorage.getItem("cdResponse");
     var listOfAllCDsObj = JSON.parse(listOfAllCDsStr);
 
 
@@ -95,10 +103,10 @@ function drawTable() {
         addCol(aCDObject.title, cdRow);
         addCol(aCDObject.genre, cdRow);
         addCol(aCDObject.duration, cdRow);
-        addCol(aCDObject.noOfTracks, cdRow);
-        addCol(aCDObject.contributingArtists, cdRow);
-        addColImage("../../../images/EditButtonImage.png", cdRow, "cdEdit");
-        addColImage("../../../images/DeleteButtonImage.png", cdRow, "cdDelete");
+        addCol(aCDObject.tracks, cdRow);
+        addCol(aCDObject.artists, cdRow);
+        addColImage("../../images/EditButtonImage.png", cdRow, "cdEdit");
+        addColImage("../../images/DeleteButtonImage.png", cdRow, "cdDelete");
 
         tbl.appendChild(cdRow); // add the dvdRow to the end of the table body
     }
@@ -122,7 +130,7 @@ function addColImage(url, row, type) {
 
     switch (type) {
         case "cdEdit":
-            img.setAttribute("onclick","editCDObj(this)");
+            img.setAttribute("onclick", "editCDObj(this)");
             cell.appendChild(img);
             row.appendChild(cell);
             break;
@@ -132,7 +140,7 @@ function addColImage(url, row, type) {
             row.appendChild(cell);
             break;
         case "dvdEdit":
-            img.setAttribute("onclick","editDVDObj(this)");
+            img.setAttribute("onclick", "editDVDObj(this)");
             cell.appendChild(img);
             row.appendChild(cell);
             break;

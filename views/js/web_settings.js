@@ -45,6 +45,5 @@ function saveWebSettings() {
     var colorValue = document.getElementById("colorSelector").value;
     var fontValue = document.getElementById("fontSelector").value;
 
-    document.cookie = "color=" + colorValue;
-    document.cookie = "font=" + fontValue;
+    setWebContextStringOnServlet(fontValue, colorValue, "new");
 }

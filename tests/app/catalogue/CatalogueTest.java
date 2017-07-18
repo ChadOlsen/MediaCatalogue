@@ -19,8 +19,8 @@ import static org.junit.Assert.*;
  */
 public class CatalogueTest {
     private Catalogue catalogue;
-    private Item cd = new CD("80s music", "Pop", "1hr23mins", 10);
-    private Item dvd = new DVD("Sponge Bob", "Animation", "2hrs", "Sponge Bob", "Sandy");
+    private Item cd = new CD("80s music", "Pop", "1hr23mins", 1, 10);
+    private Item dvd = new DVD("Sponge Bob", "Animation", "2hrs", 1, "Sponge Bob", "Sandy");
 
     @Before
     public void setup() {
@@ -64,7 +64,7 @@ public class CatalogueTest {
 
         List<Item> list = new ArrayList<>();
         list.add(null);
-        list.add(new CD("title", "genre", "length", 10));
+        list.add(new CD("title", "genre", "length", 1, 10));
 
         assertTrue(Catalogue.searchByTitle(list, "tit").size() == 1);
         assertTrue(Catalogue.searchByTitle(list, null).size() == 0);
