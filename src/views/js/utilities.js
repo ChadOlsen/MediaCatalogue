@@ -23,8 +23,7 @@ function setStringObjectOnCookie(objectKey, objectValue) {
     var allKeysAndValues = document.cookie.split(";");
 
     if (!(allKeysAndValues > 1)) {
-        newValue = objectKey + "=" + objectValue;
-        document.cookie = newValue;
+        document.cookie = objectKey + "=" + objectValue;
         return;
     }
 
@@ -40,8 +39,7 @@ function setStringObjectOnCookie(objectKey, objectValue) {
         }
     }
 
-    newValue = objectKey + "=" + objectValue;
-    document.cookie = document.cookie + ";" + newValue;
+    document.cookie = document.cookie + ";" + objectKey + "=" + objectValue;
 }
 
 function readSettings() {
@@ -51,41 +49,33 @@ function readSettings() {
         var cookieValue = cookies[i].split("=");
         var name = cookieValue[0].trim();
 
-        if (name == "color") {
-            var color = cookieValue[1];
-            switch (color) {
-                case "green":
-                    document.getElementById("blueTheme").disabled = true;
-                    document.getElementById("redTheme").disabled = true;
-                    document.getElementById("greenTheme").disabled = false;
-                    break;
-                case "blue":
-                    document.getElementById("redTheme").disabled = true;
-                    document.getElementById("greenTheme").disabled = true;
-                    document.getElementById("blueTheme").disabled = false;
-                    break;
-                case "red":
-                    document.getElementById("blueTheme").disabled = true;
-                    document.getElementById("greenTheme").disabled = true;
-                    document.getElementById("redTheme").disabled = false;
-                    break;
-            }
+        if (name === "color") {
+            selectColorStyle(cookieValue[1].trim());
         }
 
-        if (name == "font") {
-            var font = cookieValue[1];
-            switch (font) {
-                case "sans-serif":
-                    document.body.style.fontFamily = "sans-serif";
-                    break;
-                case "cursive":
-                    document.body.style.fontFamily = "cursive";
-                    break;
-                case "serif":
-                    document.body.style.fontFamily = "serif";
-                    break;
-            }
+        if (name === "font") {
+            document.body.style.fontFamily = cookieValue[1].trim();
         }
+    }
+}
+
+function selectColorStyle(color) {
+    switch (color) {
+        case "green":
+            document.getElementById("blueTheme").disabled = true;
+            document.getElementById("redTheme").disabled = true;
+            document.getElementById("greenTheme").disabled = false;
+            break;
+        case "blue":
+            document.getElementById("redTheme").disabled = true;
+            document.getElementById("greenTheme").disabled = true;
+            document.getElementById("blueTheme").disabled = false;
+            break;
+        case "red":
+            document.getElementById("blueTheme").disabled = true;
+            document.getElementById("greenTheme").disabled = true;
+            document.getElementById("redTheme").disabled = false;
+            break;
     }
 }
 
@@ -102,7 +92,7 @@ function editCDObj(row) {
         var aCDObject = cdListObj[r];
         var i = aCDObject.id;
 
-        if ((index - 1) == i) {
+        if ((index - 1) === i) {
             setStringObjectOnCookie("cdID", i);
             redirectToCatalogueWindow();
         }
@@ -120,6 +110,7 @@ function loadEditCDForm(aCDObject) {
     document.getElementById("artists").value = aCDObject.contributingArtists;
 
 }
+
 function editDVDObj(row) {
     var index = row.parentNode.parentNode.rowIndex;
     var dvdListStr = getStringObjectFromCookie("dvdlist");
@@ -128,7 +119,7 @@ function editDVDObj(row) {
     for (var r = 0; r < dvdListObj.length; r++) {
         var aDVDObject = dvdListObj[r];
         var i = aDVDObject.id;
-        if ((index - 1) == i) {
+        if ((index - 1) === i) {
             setStringObjectOnCookie("dvdID", i);
             redirectToCatalogueWindow();
         }

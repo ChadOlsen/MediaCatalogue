@@ -3,16 +3,16 @@
     <head>
         <meta charset="UTF-8">
         <title>Media Catalogue - Home</title>
-        <link rel="stylesheet" href="../../../src/views/css/home_styles.css">
-        <link rel="stylesheet" href="../../../src/views/css/blue_theme_styles.css" id="blueTheme">
-        <link rel="stylesheet" href="../../../src/views/css/red_theme_styles.css" id="redTheme">
-        <link rel="stylesheet" href="../../../src/views/css/green_theme_styles.css" id="greenTheme">
-        <script src="../../../src/views/js/utilities.js"></script>
-        <script src="../../../src/views/js/home.js"></script>
+        <link type="text/css" rel="stylesheet" href="../../../src/views/css/home_styles.css"/>
+        <link type="text/css" rel="stylesheet" href="../../../src/views/css/blue_theme_styles.css" id="blueTheme"/>
+        <link type="text/css" rel="stylesheet" href="../../../src/views/css/red_theme_styles.css" id="redTheme"/>
+        <link type="text/css" rel="stylesheet" href="../../../src/views/css/green_theme_styles.css" id="greenTheme"/>
+        <script type="text/javascript" src="../../../src/views/js/utilities.js"></script>
+        <script type="text/javascript" src="../../../src/views/js/home.js"></script>
     </head>
     <body onload="readSettings(), drawTable()">
         <header>
-            <a id="logo" href="home.html"><img id="logoImage" src="../../../images/MediaCatalogueHeader[150].png" alt="Media Catalogue logo"></a>
+            <a id="logo" href="home.html"><img id="logoImage" src="../../../images/MediaCatalogueHeader[150].png" alt="Media Catalogue logo"/></a>
             <a id="activeTab" class="tabs" href="home.html">Home</a>
             <a class="tabs" href="about.html">About</a>
             <a class="tabs" href="catalogue.html">Catalogue</a>
@@ -25,11 +25,11 @@
                     <legend id="dvdTableHeader" style="display:none">DVD table</legend>
                     <thead>
                         <tr align="center">
-                            <th>Title<img class="sortIcon" src="../../../images/SortButtonIcon.png"></th>
-                            <th>Genre<img class="sortIcon" src="../../../images/SortButtonIcon.png"></th>
-                            <th>Duration<img class="sortIcon" src="../../../images/SortButtonIcon.png"></th>
-                            <th>Lead Actor<img class="sortIcon" src="../../../images/SortButtonIcon.png"></th>
-                            <th>Lead Actress<img class="sortIcon" src="../../../images/SortButtonIcon.png"></th>
+                            <th>Title<img class="sortIcon" src="../../../images/SortButtonIcon.png"/></th>
+                            <th>Genre<img class="sortIcon" src="../../../images/SortButtonIcon.png"/></th>
+                            <th>Duration<img class="sortIcon" src="../../../images/SortButtonIcon.png"/></th>
+                            <th>Lead Actor<img class="sortIcon" src="../../../images/SortButtonIcon.png"/></th>
+                            <th>Lead Actress<img class="sortIcon" src="../../../images/SortButtonIcon.png"/></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -39,11 +39,11 @@
                     <legend id="cdTableHeader" style="display:none">CD table</legend>
                     <thead>
                         <tr>
-                            <th>Title<img class="sortIcon" src="../../../images/SortButtonIcon.png"></th>
-                            <th>Genre<img class="sortIcon" src="../../../images/SortButtonIcon.png"></th>
-                            <th>Duration<img class="sortIcon" src="../../../images/SortButtonIcon.png"></th>
-                            <th>No. of Tracks<img class="sortIcon" src="../../../images/SortButtonIcon.png"></th>
-                            <th>Contributing Artists<img class="sortIcon" src="../../../images/SortButtonIcon.png"></th>
+                            <th>Title<img class="sortIcon" src="../../../images/SortButtonIcon.png"/></th>
+                            <th>Genre<img class="sortIcon" src="../../../images/SortButtonIcon.png"/></th>
+                            <th>Duration<img class="sortIcon" src="../../../images/SortButtonIcon.png"/></th>
+                            <th>No. of Tracks<img class="sortIcon" src="../../../images/SortButtonIcon.png"/></th>
+                            <th>Contributing Artists<img class="sortIcon" src="../../../images/SortButtonIcon.png"/></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -53,7 +53,7 @@
             <button onclick="displayCDTable()" id="displayCDButton" class="button" type="button" name="CDs">CDs</button>
         </div>
         <footer>
-            <h6 id="footerLabel">&copy 2017 Media Catalogue</h6>
+            <h6 id="footerLabel">&copy; 2017 Media Catalogue</h6>
         </footer>
     </body>
 </html>

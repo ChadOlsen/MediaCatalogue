@@ -3,16 +3,16 @@
     <head>
         <meta charset="UTF-8">
         <title>Media Catalogue - Web-Settings</title>
-        <link rel="stylesheet" href="../../../src/views/css/web_settings_styles.css">
-        <link rel="stylesheet" href="../../../src/views/css/blue_theme_styles.css" id="blueTheme">
-        <link rel="stylesheet" href="../../../src/views/css/red_theme_styles.css" id="redTheme">
-        <link rel="stylesheet" href="../../../src/views/css/green_theme_styles.css" id="greenTheme">
-        <script src="../../../src/views/js/utilities.js"></script>
-        <script src="../../../src/views/js/web_settings.js"></script>
+        <link type="text/css" rel="stylesheet" href="../../../src/views/css/web_settings_styles.css"/>
+        <link type="text/css" rel="stylesheet" href="../../../src/views/css/blue_theme_styles.css" id="blueTheme"/>
+        <link type="text/css" rel="stylesheet" href="../../../src/views/css/red_theme_styles.css" id="redTheme"/>
+        <link type="text/css" rel="stylesheet" href="../../../src/views/css/green_theme_styles.css" id="greenTheme"/>
+        <script type="text/javascript" src="../../../src/views/js/utilities.js"></script>
+        <script type="text/javascript" src="../../../src/views/js/web_settings.js"></script>
     </head>
     <body  onload="readSettings()">
         <header>
-            <a id="logo" href="home.html"><img id="logoImage" src="../../../images/MediaCatalogueHeader[150].png" alt="Media Catalogue logo"></a>
+            <a id="logo" href="home.html"><img id="logoImage" src="../../../images/MediaCatalogueHeader[150].png" alt="Media Catalogue logo"/></a>
             <a class="tabs" href="home.html">Home</a>
             <a class="tabs" href="about.html">About</a>
             <a class="tabs" href="catalogue.html">Catalogue</a>
@@ -26,18 +26,18 @@
                     <option name="color" id="green" value="green">Green</option>
                     <option name="color" id="blue" value="blue">Blue</option>
                     <option name="color" id="red" value="red">Red</option>
-                </select> <br>
+                </select> <br/>
                 <label for="fontSelector">Font Options:</label>
                 <select id="fontSelector" onchange="changeFont()">
                     <option name="fonts" value="sans-serif">Sans-Serif</option>
                     <option name="fonts" value="cursive">Cursive</option>
                     <option name="fonts" value="serif">Serif</option>
-                </select> <br>
+                </select> <br/>
                 <button onclick="saveWebSettings()" type="submit">Save Settings</button>
             </form>
         </div>
         <footer>
-            <h6 id="footerLabel">&copy 2017 Media Catalogue</h6>
+            <h6 id="footerLabel">&copy; 2017 Media Catalogue</h6>
         </footer>
     </body>
 </html>

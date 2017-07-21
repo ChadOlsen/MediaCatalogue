@@ -22,14 +22,14 @@ function displayCDTable() {
 function deleteDVDEntry(row) {
     var index = row.parentNode.parentNode.rowIndex;
 
-    if (confirm("Are you sure you want to delete this entry from the DVD Table?") === true) {
+    if (confirm("Are you sure you want to delete this entry from the DVD Table?")) {
         var listOfAllDVDsStr = getStringObjectFromCookie("dvdlist");
         var listOfAllDVDsObj = JSON.parse(listOfAllDVDsStr);
 
         for (var r = 0; r < listOfAllDVDsObj.length; r++) {
             var aDVDObject = listOfAllDVDsObj[r];
             var ind = aDVDObject.id;
-            if ((index - 1) == ind) {
+            if ((index - 1) === ind) {
                 document.getElementById("dvdTable").deleteRow(index);
                 listOfAllDVDsObj.splice(ind, 1);
                 var newValue = JSON.stringify(listOfAllDVDsObj);
@@ -42,14 +42,14 @@ function deleteDVDEntry(row) {
 function deleteCDEntry(row) {
     var index = row.parentNode.parentNode.rowIndex;
 
-    if (confirm("Are you sure you want to delete this entry from the CD Table?") === true) {
+    if (confirm("Are you sure you want to delete this entry from the CD Table?")) {
         var listOfAllCDsStr = getStringObjectFromCookie("cdlist");
         var listOfAllCDsObj = JSON.parse(listOfAllCDsStr);
 
         for (var r = 0; r < listOfAllCDsObj.length; r++) {
             var aCDObject = listOfAllCDsObj[r];
             var ind = aCDObject.id;
-            if ((index - 1) == ind) {
+            if ((index - 1) === ind) {
                 document.getElementById("cdTable").deleteRow(index);
                 listOfAllCDsObj.splice(ind, 1);
                 var newValue = JSON.stringify(listOfAllCDsObj);

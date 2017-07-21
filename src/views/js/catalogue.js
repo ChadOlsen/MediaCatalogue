@@ -4,28 +4,28 @@
  */
 
 function loadEditedItem() {
-    if (getStringObjectFromCookie("dvdID") != ""){
+    if ("" !== getStringObjectFromCookie("dvdID")){
         var index = parseInt(getStringObjectFromCookie("dvdID"));
         var dvdListStr = getStringObjectFromCookie("dvdlist");
         var dvdListObj = JSON.parse(dvdListStr);
 
         for (var i = 0; i<dvdListObj.length; i++){
             var dvd = dvdListObj[i];
-            if (dvd.id == index){
+            if (dvd.id === index){
                 loadEditDVDForm(dvd);
                 return;
             }
         }
     }
 
-    if (getStringObjectFromCookie("cdID") != ""){
+    if ("" !== getStringObjectFromCookie("cdID")){
         index = parseInt(getStringObjectFromCookie("cdID"));
         var cdListStr = getStringObjectFromCookie("cdlist");
         var cdListObj = JSON.parse(cdListStr);
 
         for (var j = 0; j<cdListObj.length; j++){
             var cd = cdListObj[j];
-            if (cd.id == index){
+            if (cd.id === index){
                 loadEditCDForm(cd);
                 return;
             }
@@ -54,9 +54,9 @@ function saveNewDVDItem() {
     var leadActor = document.getElementById("leadActor");
     var leadActress = document.getElementById("leadActress");
 
-    if (getStringObjectFromCookie("dvdID") == "") {
-        if (dvdListStr == "") {
-            dvdListObj = new Array();
+    if ("" === getStringObjectFromCookie("dvdID")) {
+        if ("" === dvdListStr) {
+            dvdListObj = [];
             autoIncrement = 0;
         } else {
             dvdListObj = JSON.parse(dvdListStr);
@@ -126,9 +126,9 @@ function saveNewCDItem() {
     var tracks = document.getElementById("tracks");
     var artists = document.getElementById("artists");
 
-    if (getStringObjectFromCookie("cdID") == "") {
-        if (cdListStr == "") {
-            cdListObj = new Array();
+    if ("" === getStringObjectFromCookie("cdID")) {
+        if ("" === cdListStr) {
+            cdListObj = [];
             autoIncrement = 0;
         } else {
             cdListObj = JSON.parse(cdListStr);
